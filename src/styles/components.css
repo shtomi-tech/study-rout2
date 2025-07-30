@@ -1,0 +1,186 @@
+/* コンポーネント共通スタイル */
+.roadmap-card {
+  @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
+}
+
+.roadmap-section {
+  @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors duration-200 font-medium;
+}
+
+/* ホームページスタイル */
+.home-header {
+  @apply bg-white shadow-sm border-b;
+}
+
+.home-main {
+  @apply py-12;
+}
+
+.home-footer {
+  @apply bg-white border-t mt-auto;
+}
+
+.subject-card {
+  @apply roadmap-card cursor-pointer hover:shadow-xl transition-all duration-300 border-2;
+}
+
+.subject-icon {
+  @apply mb-4;
+}
+
+.subject-title {
+  @apply text-2xl font-bold text-gray-900 mb-3;
+}
+
+.subject-description {
+  @apply text-gray-600 mb-6;
+}
+
+.subject-info {
+  @apply space-y-2 text-sm text-gray-500;
+}
+
+/* 学習ルート選択画面スタイル */
+.route-selector-header {
+  @apply bg-white shadow-sm border-b;
+}
+
+.route-selector-main {
+  @apply py-8;
+}
+
+.route-card {
+  @apply roadmap-card cursor-pointer hover:shadow-xl transition-all duration-300 border-2;
+}
+
+.route-info {
+  @apply space-y-3 mb-6;
+}
+
+.route-content {
+  @apply space-y-3;
+}
+
+/* ロードマップ表示画面スタイル */
+.viewer-header {
+  @apply flex justify-between items-start mb-8;
+}
+
+.viewer-title {
+  @apply text-3xl font-bold text-gray-900 mb-2;
+}
+
+.viewer-subtitle {
+  @apply text-lg text-gray-600;
+}
+
+.viewer-actions {
+  @apply flex gap-2;
+}
+
+.viewer-stats {
+  @apply roadmap-card mb-8;
+}
+
+.viewer-sections {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+}
+
+.viewer-goal {
+  @apply roadmap-card mt-8;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .subject-card {
+    @apply p-4;
+  }
+  
+  .route-card {
+    @apply p-4;
+  }
+  
+  .viewer-sections {
+    @apply grid-cols-1;
+  }
+}
+
+/* アニメーション */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ホバーエフェクト */
+.hover-lift {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* カラーテーマ */
+.theme-japanese {
+  @apply text-red-600 bg-red-50 border-red-200;
+}
+
+.theme-math {
+  @apply text-blue-600 bg-blue-50 border-blue-200;
+}
+
+.theme-english {
+  @apply text-green-600 bg-green-50 border-green-200;
+}
+
+/* アイコンサイズ */
+.icon-sm {
+  @apply w-4 h-4;
+}
+
+.icon-md {
+  @apply w-6 h-6;
+}
+
+.icon-lg {
+  @apply w-8 h-8;
+}
+
+.icon-xl {
+  @apply w-12 h-12;
+}
+
+ 
