@@ -12,32 +12,68 @@ export const learningRoutes: Record<string, Record<string, RoadmapData[]>> = {
         goal: '目標:現代文の読解力と表現力の基礎を身につける',
         sections: [
           {
+            id: 'intro-modern-reading',
+            title: '①柳生のここからはじめる現代文ドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['短文読解練習', '主語・述語の理解', '接続詞の使い方', '段落の構造理解', '指示語の理解', '要約の練習'],
+            order: 1,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+            duration: '約2ヶ月'
+          },
+          {
+            id: 'connect-modern-reading',
+            title: '②柳生のここからつなげる現代文ドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['論説文の読解', '小説文の読解', '随筆文の読解', '筆者の主張把握', '心情の理解', '表現技法の理解'],
+            order: 2,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+            duration: '約2ヶ月'
+          },
+          {
             id: 'reading-comprehension',
-            title: '1. 読解力の基礎',
+            title: '③読解力の基礎',
             description: '文章を正確に読み取る力を養う',
             items: ['短文読解練習', '主語・述語の理解', '接続詞の使い方', '段落の構造理解'],
-            order: 1
-          },
-          {
-            id: 'writing-expression',
-            title: '2. 表現力の基礎',
-            description: '自分の考えを文章で表現する',
-            items: ['日記・作文練習', '文章構成の基本', '敬語の使い方', '句読点の使い方'],
-            order: 2
-          },
-          {
-            id: 'vocabulary',
-            title: '3. 語彙力の向上',
-            description: '豊富な語彙を身につける',
-            items: ['同義語・反義語', '類義語の使い分け', '慣用句・ことわざ', '四字熟語'],
             order: 3
           },
           {
+            id: 'writing-expression',
+            title: '④表現力の基礎',
+            description: '自分の考えを文章で表現する',
+            items: ['日記・作文練習', '文章構成の基本', '敬語の使い方', '句読点の使い方'],
+            order: 4
+          },
+          {
+            id: 'vocabulary',
+            title: '⑤語彙力の向上',
+            description: '豊富な語彙を身につける',
+            items: ['同義語・反義語', '類義語の使い分け', '慣用句・ことわざ', '四字熟語'],
+            order: 5
+          },
+          {
             id: 'logic-reading',
-            title: '4. 論理読解',
+            title: '⑥論理読解',
             description: '論理的な文章を読み解く',
             items: ['論説文の読解', '指示語の理解', '要約の練習', '筆者の主張把握'],
-            order: 4
+            order: 6
+          },
+          {
+            id: 'modern-commentary-keywords',
+            title: '⑦現代評論キーワード講義',
+            description: '現代評論で頻出するキーワードを体系的に学習し、評論読解の基礎を固める',
+            items: ['評論キーワードの理解', '概念の整理', '論理構造の把握', '背景知識の習得'],
+            order: 7,
+            studyMethod: '毎日1つのキーワードを深く理解する。キーワードの定義、具体例、関連概念を整理してノートにまとめる。',
+            duration: '約2ヶ月'
+          },
+          {
+            id: 'the-rules-modern-1',
+            title: '⑧柳生好之のThe Rules現代文問題集1入試基礎',
+            description: '入試現代文の基礎となるルールを体系的に学習し、確実な読解力を身につける',
+            items: ['読解ルールの習得', '設問パターンの理解', '解答プロセスの確立', '基礎問題演習', '解説の理解と復習'],
+            order: 8,
+            studyMethod: '1日1題のペースで問題を解き、解説を熟読する。間違えた問題は必ず復習し、なぜ間違えたのかを分析する。',
+            duration: '約2ヶ月'
           }
         ],
         createdAt: new Date(),
