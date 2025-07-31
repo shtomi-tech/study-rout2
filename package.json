@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "学習ロードマップ作成ツール",
   "private": true,
+  "homepage": "https://shtomi-tech.github.io/study-rout2",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -20,6 +23,7 @@
     "@types/react-beautiful-dnd": "^13.1.4",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
+    "gh-pages": "^6.0.0",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
