@@ -1,30 +1,17 @@
-name: Deploy Static Files to GitHub Pages
+name: Simple Static Deploy
 
 on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
-    inputs:
-      deploy_type:
-        description: 'Deploy type'
-        required: true
-        default: 'static'
-        type: choice
-        options:
-        - static
-        - build
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -50,13 +37,5 @@ jobs:
           tsconfig*.json
           .gitignore
           
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
     - name: Deploy to GitHub Pages
-      id: deployment
       uses: actions/deploy-pages@v4 
