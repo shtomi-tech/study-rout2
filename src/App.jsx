@@ -1,32 +1,27 @@
 import React, { useState } from 'react';
-import { HomePage } from './components/HomePage';
-import { CategorySelector } from './components/CategorySelector';
-import { LearningRouteSelector } from './components/LearningRouteSelector';
-import { RoadmapViewer } from './components/RoadmapViewer';
-import { learningRoutes } from './data/learningRoutes';
-import { RoadmapData } from './types';
+import { HomePage } from './components/HomePage.jsx';
+import { CategorySelector } from './components/CategorySelector.jsx';
+import { LearningRouteSelector } from './components/LearningRouteSelector.jsx';
+import { RoadmapViewer } from './components/RoadmapViewer.jsx';
+import { learningRoutes } from './data/learningRoutes.js';
 
-type AppState = 'home' | 'category' | 'select' | 'view';
+const App = () => {
+  const [currentState, setCurrentState] = useState('home');
+  const [currentRoadmap, setCurrentRoadmap] = useState(null);
+  const [selectedSubject, setSelectedSubject] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
-const App: React.FC = () => {
-  const [currentState, setCurrentState] = useState<AppState>('home');
-  const [currentRoadmap, setCurrentRoadmap] = useState<RoadmapData | null>(null);
-  const [selectedSubject, setSelectedSubject] = useState<string>('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-
-
-
-  const handleSelectSubject = (subject: string) => {
+  const handleSelectSubject = (subject) => {
     setSelectedSubject(subject);
     setCurrentState('category');
   };
 
-  const handleSelectCategory = (category: string) => {
+  const handleSelectCategory = (category) => {
     setSelectedCategory(category);
     setCurrentState('select');
   };
 
-  const handleSelectRoute = (route: RoadmapData) => {
+  const handleSelectRoute = (route) => {
     setCurrentRoadmap(route);
     setCurrentState('view');
   };
@@ -86,7 +81,7 @@ const App: React.FC = () => {
     }
   };
 
-    return (
+  return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* ヘッダー */}
       {currentState === 'view' && (

@@ -1,23 +1,16 @@
 import React from 'react';
-import { ArrowLeft, BookOpen, Calculator, Globe, FileText, Scroll, BookOpenCheck, ArrowRight } from 'lucide-react';
 
-interface CategorySelectorProps {
-  subject: string;
-  onSelectCategory: (category: string) => void;
-  onBackToHome: () => void;
-}
-
-export const CategorySelector: React.FC<CategorySelectorProps> = ({
+const CategorySelector = ({
   subject,
   onSelectCategory,
   onBackToHome
 }) => {
-  const getSubjectInfo = (subject: string) => {
+  const getSubjectInfo = (subject) => {
     switch (subject) {
       case 'japanese':
         return {
           name: '国語',
-          icon: BookOpen,
+          icon: '📚',
           color: 'text-red-600',
           bgColor: 'bg-red-50',
           borderColor: 'border-red-200',
@@ -27,7 +20,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               id: 'modern',
               name: '現代文',
               description: '現代の文章を読解し、表現力を身につける',
-              icon: FileText,
+              icon: '📝',
               color: 'text-red-500',
               bgColor: 'bg-red-50',
               borderColor: 'border-red-200',
@@ -37,7 +30,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               id: 'classical',
               name: '古文',
               description: '古典文学を読み解き、古典文化を理解する',
-              icon: Scroll,
+              icon: '📜',
               color: 'text-red-600',
               bgColor: 'bg-red-50',
               borderColor: 'border-red-200',
@@ -47,7 +40,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               id: 'chinese',
               name: '漢文',
               description: '中国古典文学を読み解き、中国文化を理解する',
-              icon: BookOpenCheck,
+              icon: '🏛️',
               color: 'text-red-700',
               bgColor: 'bg-red-50',
               borderColor: 'border-red-200',
@@ -58,7 +51,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
       case 'math':
         return {
           name: '数学',
-          icon: Calculator,
+          icon: '🧮',
           color: 'text-blue-600',
           bgColor: 'bg-blue-50',
           borderColor: 'border-blue-200',
@@ -68,7 +61,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               id: 'humanities',
               name: '文系数学',
               description: '文系大学入試に対応する数学力を身につける',
-              icon: Calculator,
+              icon: '📊',
               color: 'text-blue-500',
               bgColor: 'bg-blue-50',
               borderColor: 'border-blue-200',
@@ -78,7 +71,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               id: 'science',
               name: '理系数学',
               description: '理系大学入試に対応する高度な数学力を身につける',
-              icon: Calculator,
+              icon: '🔬',
               color: 'text-blue-700',
               bgColor: 'bg-blue-50',
               borderColor: 'border-blue-200',
@@ -89,7 +82,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
       case 'english':
         return {
           name: '英語',
-          icon: Globe,
+          icon: '🌍',
           color: 'text-green-600',
           bgColor: 'bg-green-50',
           borderColor: 'border-green-200',
@@ -99,7 +92,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               id: 'basic',
               name: '英語基礎',
               description: '英語の基礎文法と語彙力を身につける',
-              icon: Globe,
+              icon: '📖',
               color: 'text-green-500',
               bgColor: 'bg-green-50',
               borderColor: 'border-green-200',
@@ -110,7 +103,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
       default:
         return {
           name: '学習',
-          icon: BookOpen,
+          icon: '📚',
           color: 'text-gray-600',
           bgColor: 'bg-gray-50',
           borderColor: 'border-gray-200',
@@ -121,7 +114,6 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
   };
 
   const subjectInfo = getSubjectInfo(subject);
-  const IconComponent = subjectInfo.icon;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -133,12 +125,11 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               onClick={onBackToHome}
               className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors duration-200"
             >
-              <ArrowLeft size={20} />
-              ホームに戻る
+              ← ホームに戻る
             </button>
             <div className="flex items-center gap-3">
-              <div className={`p-3 rounded-xl bg-gradient-to-r ${subjectInfo.gradient} shadow-sm`}>
-                <IconComponent size={24} className="text-white" />
+              <div className={`p-3 rounded-xl bg-gradient-to-r ${subjectInfo.gradient} shadow-sm text-white text-xl`}>
+                {subjectInfo.icon}
               </div>
               <h1 className="text-xl font-semibold text-gray-900">
                 {subjectInfo.name}のカテゴリ選択
@@ -161,57 +152,54 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {subjectInfo.categories.map((category) => {
-              const CategoryIconComponent = category.icon;
-              return (
-                <div
-                  key={category.id}
-                  className="group"
+            {subjectInfo.categories.map((category) => (
+              <div
+                key={category.id}
+                className="group"
+              >
+                <button
+                  onClick={() => onSelectCategory(category.id)}
+                  className="w-full h-full text-left bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden group-hover:scale-105"
                 >
-                  <button
-                    onClick={() => onSelectCategory(category.id)}
-                    className="w-full h-full text-left bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden group-hover:scale-105"
-                  >
-                    <div className="p-6">
-                      {/* アイコンとグラデーション背景 */}
-                      <div className={`w-14 h-14 rounded-full bg-gradient-to-r ${category.gradient} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                        <CategoryIconComponent size={28} className="text-white" />
+                  <div className="p-6">
+                    {/* アイコンとグラデーション背景 */}
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-r ${category.gradient} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300 text-white text-xl`}>
+                      {category.icon}
+                    </div>
+                    
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 text-center">
+                      {category.name}
+                    </h3>
+                    
+                    <p className="text-gray-600 mb-4 text-center text-sm leading-relaxed">
+                      {category.description}
+                    </p>
+                    
+                    {/* 学習情報 */}
+                    <div className="space-y-2 text-xs text-gray-500 mb-4">
+                      <div className="flex justify-between items-center">
+                        <span>対象レベル:</span>
+                        <span className="font-medium text-gray-700">初級〜上級</span>
                       </div>
-                      
-                      <h3 className="text-lg font-bold text-gray-900 mb-3 text-center">
-                        {category.name}
-                      </h3>
-                      
-                      <p className="text-gray-600 mb-4 text-center text-sm leading-relaxed">
-                        {category.description}
-                      </p>
-                      
-                      {/* 学習情報 */}
-                      <div className="space-y-2 text-xs text-gray-500 mb-4">
-                        <div className="flex justify-between items-center">
-                          <span>対象レベル:</span>
-                          <span className="font-medium text-gray-700">初級〜上級</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span>学習期間:</span>
-                          <span className="font-medium text-gray-700">3ヶ月〜1年</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span>習得目標:</span>
-                          <span className="font-medium text-gray-700">基礎〜応用</span>
-                        </div>
+                      <div className="flex justify-between items-center">
+                        <span>学習期間:</span>
+                        <span className="font-medium text-gray-700">3ヶ月〜1年</span>
                       </div>
-                      
-                      {/* アクションボタン */}
-                      <div className="flex items-center justify-center text-blue-600 group-hover:text-blue-700 font-medium text-sm">
-                        <span>カテゴリを選択</span>
-                        <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      <div className="flex justify-between items-center">
+                        <span>習得目標:</span>
+                        <span className="font-medium text-gray-700">基礎〜応用</span>
                       </div>
                     </div>
-                  </button>
-                </div>
-              );
-            })}
+                    
+                    {/* アクションボタン */}
+                    <div className="flex items-center justify-center text-blue-600 group-hover:text-blue-700 font-medium text-sm">
+                      <span>カテゴリを選択</span>
+                      <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            ))}
           </div>
 
           {/* 追加情報セクション */}
@@ -236,4 +224,6 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
       </main>
     </div>
   );
-}; 
+};
+
+export { CategorySelector }; 

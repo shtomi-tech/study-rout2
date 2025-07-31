@@ -4,6 +4,8 @@ export interface RoadmapSection {
   description: string;
   items: string[];
   order: number;
+  studyMethod?: string;
+  duration?: string;
 }
 
 export interface RoadmapData {

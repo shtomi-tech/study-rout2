@@ -1,26 +1,17 @@
 import React from 'react';
-import { ArrowLeft, BookOpen, Calculator, Globe, Star, Clock, Target, ArrowRight, CheckCircle } from 'lucide-react';
-import { RoadmapData } from '../types';
 
-interface LearningRouteSelectorProps {
-  subject: string;
-  routes: RoadmapData[];
-  onSelectRoute: (route: RoadmapData) => void;
-  onBackToHome: () => void;
-}
-
-export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
+const LearningRouteSelector = ({
   subject,
   routes,
   onSelectRoute,
   onBackToHome
 }) => {
-  const getSubjectInfo = (subject: string) => {
+  const getSubjectInfo = (subject) => {
     switch (subject) {
       case 'japanese':
         return {
           name: '国語',
-          icon: BookOpen,
+          icon: '📚',
           color: 'text-red-600',
           bgColor: 'bg-red-50',
           borderColor: 'border-red-200',
@@ -29,7 +20,7 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
       case 'math':
         return {
           name: '数学',
-          icon: Calculator,
+          icon: '🧮',
           color: 'text-blue-600',
           bgColor: 'bg-blue-50',
           borderColor: 'border-blue-200',
@@ -38,7 +29,7 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
       case 'english':
         return {
           name: '英語',
-          icon: Globe,
+          icon: '🌍',
           color: 'text-green-600',
           bgColor: 'bg-green-50',
           borderColor: 'border-green-200',
@@ -47,7 +38,7 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
       default:
         return {
           name: '学習',
-          icon: BookOpen,
+          icon: '📚',
           color: 'text-gray-600',
           bgColor: 'bg-gray-50',
           borderColor: 'border-gray-200',
@@ -57,7 +48,6 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
   };
 
   const subjectInfo = getSubjectInfo(subject);
-  const IconComponent = subjectInfo.icon;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -69,12 +59,11 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
               onClick={onBackToHome}
               className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2 hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors duration-200"
             >
-              <ArrowLeft size={20} />
-              カテゴリ選択に戻る
+              ← カテゴリ選択に戻る
             </button>
             <div className="flex items-center gap-3">
-              <div className={`p-3 rounded-xl bg-gradient-to-r ${subjectInfo.gradient} shadow-sm`}>
-                <IconComponent size={24} className="text-white" />
+              <div className={`p-3 rounded-xl bg-gradient-to-r ${subjectInfo.gradient} shadow-sm text-white text-xl`}>
+                {subjectInfo.icon}
               </div>
               <h1 className="text-xl font-semibold text-gray-900">
                 {subjectInfo.name}の学習ルート
@@ -110,8 +99,8 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
                     {/* ヘッダー部分 */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex items-center gap-3">
-                        <div className={`p-3 rounded-xl bg-gradient-to-r ${subjectInfo.gradient} shadow-sm`}>
-                          <IconComponent size={20} className="text-white" />
+                        <div className={`p-3 rounded-xl bg-gradient-to-r ${subjectInfo.gradient} shadow-sm text-white text-lg`}>
+                          {subjectInfo.icon}
                         </div>
                         <div>
                           <h3 className="text-lg font-bold text-gray-900">
@@ -127,17 +116,17 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
                     {/* 学習情報 */}
                     <div className="space-y-3 mb-6">
                       <div className="flex items-center gap-2 text-sm">
-                        <Star size={16} className="text-yellow-500" />
+                        <span className="text-yellow-500">⭐</span>
                         <span className="text-gray-600">レベル:</span>
                         <span className="font-medium text-gray-900">{route.level}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm">
-                        <Target size={16} className="text-blue-500" />
+                        <span className="text-blue-500">🎯</span>
                         <span className="text-gray-600">習得率:</span>
                         <span className="font-medium text-gray-900">{route.passRate}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm">
-                        <Clock size={16} className="text-green-500" />
+                        <span className="text-green-500">⏰</span>
                         <span className="text-gray-600">学習期間:</span>
                         <span className="font-medium text-gray-900">{route.preparationPeriod}</span>
                       </div>
@@ -146,7 +135,7 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
                     {/* 学習内容プレビュー */}
                     <div className="space-y-3 mb-6">
                       <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                        <CheckCircle size={16} className="text-green-500" />
+                        <span className="text-green-500">✓</span>
                         学習内容:
                       </h4>
                       {route.sections.slice(0, 3).map((section, index) => (
@@ -169,7 +158,7 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
                     {/* アクションボタン */}
                     <div className="flex items-center justify-center text-blue-600 group-hover:text-blue-700 font-medium">
                       <span>このルートを選択</span>
-                      <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
                     </div>
                   </div>
                 </button>
@@ -203,4 +192,6 @@ export const LearningRouteSelector: React.FC<LearningRouteSelectorProps> = ({
       </main>
     </div>
   );
-}; 
+};
+
+export { LearningRouteSelector }; 

@@ -6,93 +6,142 @@ export const learningRoutes: Record<string, Record<string, RoadmapData[]>> = {
       {
         id: 'modern-basic',
         title: '現代文基礎学習ルート',
-        level: '初級レベル',
-        passRate: '基礎習得率 85%',
-        preparationPeriod: '約3ヶ月',
+                 level: '初級レベル',
+         preparationPeriod: '約10.5ヶ月',
         goal: '目標:現代文の読解力と表現力の基礎を身につける',
         sections: [
           {
-            id: 'reading-comprehension',
-            title: '1. 読解力の基礎',
-            description: '文章を正確に読み取る力を養う',
-            items: ['短文読解練習', '主語・述語の理解', '接続詞の使い方', '段落の構造理解'],
-            order: 1
+            id: 'intro-modern-reading',
+            title: '①柳生のここからはじめる現代文ドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['短文読解練習', '主語・述語の理解', '接続詞の使い方', '段落の構造理解', '指示語の理解', '要約の練習'],
+            order: 1,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+            duration: '約2ヶ月'
           },
-          {
-            id: 'writing-expression',
-            title: '2. 表現力の基礎',
-            description: '自分の考えを文章で表現する',
-            items: ['日記・作文練習', '文章構成の基本', '敬語の使い方', '句読点の使い方'],
-            order: 2
-          },
-          {
-            id: 'vocabulary',
-            title: '3. 語彙力の向上',
-            description: '豊富な語彙を身につける',
-            items: ['同義語・反義語', '類義語の使い分け', '慣用句・ことわざ', '四字熟語'],
-            order: 3
-          },
-          {
-            id: 'logic-reading',
-            title: '4. 論理読解',
-            description: '論理的な文章を読み解く',
-            items: ['論説文の読解', '指示語の理解', '要約の練習', '筆者の主張把握'],
-            order: 4
-          }
+                     {
+             id: 'connect-modern-reading',
+             title: '②柳生のここからつなげる現代文ドリル',
+             description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+             items: ['論説文の読解', '小説文の読解', '随筆文の読解', '筆者の主張把握', '心情の理解', '表現技法の理解'],
+             order: 2,
+             studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+             duration: '約2ヶ月'
+           },
+                     {
+             id: 'modern-commentary-keywords',
+             title: '③現代評論キーワード講義',
+             description: '現代評論で頻出するキーワードを体系的に学習し、評論読解の基礎を固める',
+             items: ['評論キーワードの理解', '概念の整理', '論理構造の把握', '背景知識の習得'],
+             order: 3,
+             studyMethod: '毎日1つのキーワードを深く理解する。キーワードの定義、具体例、関連概念を整理してノートにまとめる。',
+             duration: '約2ヶ月'
+           },
+           {
+             id: 'the-rules-modern-basic',
+             title: '④柳生好之のThe Rules現代文問題集1入試基礎',
+             description: '柳生好之による現代文問題集で入試基礎レベルの問題に取り組む',
+             items: ['入試基礎レベル問題演習', '読解力向上', '解法パターンの習得', '基礎知識の確認'],
+             order: 4,
+             studyMethod: '毎日2題ずつ基礎レベル問題に取り組む。基礎をしっかり固めてから次のレベルに進む。',
+             duration: '約1.5ヶ月'
+           },
+           {
+             id: 'the-rules-modern-standard',
+             title: '⑤柳生好之のThe Rules現代文問題集2入試標準',
+             description: '柳生好之による現代文問題集で入試標準レベルの問題に取り組む',
+             items: ['入試標準レベル問題演習', '読解力向上', '解法パターンの応用', '応用知識の習得'],
+             order: 5,
+             studyMethod: '毎日2題ずつ標準レベル問題に取り組む。基礎レベルで習得した知識を活用して応用力を身につける。',
+             duration: '約1.5ヶ月'
+           },
+           {
+             id: 'the-rules-modern-advanced',
+             title: '⑥柳生好之のThe Rules現代文問題集3入試難関',
+             description: '柳生好之による現代文問題集で入試難関レベルの問題に取り組む',
+             items: ['入試難関レベル問題演習', '読解力向上', '解法パターンの応用', '高度な知識の習得'],
+             order: 6,
+             studyMethod: '毎日2題ずつ難関レベル問題に取り組む。標準レベルで習得した知識を活用して最難関大学入試に対応する実力を身につける。',
+             duration: '約1.5ヶ月'
+           }
         ],
         createdAt: new Date(),
         updatedAt: new Date()
       }
     ],
-    classical: [
-      {
-        id: 'classical-basic',
-        title: '古文基礎学習ルート',
-        level: '初級レベル',
-        passRate: '基礎習得率 80%',
-        preparationPeriod: '約4ヶ月',
-        goal: '目標:古文の基礎文法と読解力を身につける',
-        sections: [
-          {
-            id: 'grammar-basic',
-            title: '1. 基礎文法',
-            description: '古文の基本文法を理解',
-            items: ['活用の基本', '助動詞の理解', '助詞の使い方', '敬語の体系'],
-            order: 1
-          },
-          {
-            id: 'vocabulary-classical',
-            title: '2. 古典語彙',
-            description: '古典語彙を習得',
-            items: ['和語・漢語', '古語辞典の使い方', '語句の意味', '現代語訳'],
-            order: 2
-          },
-          {
-            id: 'reading-basic',
-            title: '3. 基礎読解',
-            description: '簡単な古文を読む',
-            items: ['短文読解', '和歌の理解', '物語文', '随筆文'],
-            order: 3
-          },
-          {
-            id: 'culture',
-            title: '4. 古典文化',
-            description: '古典文化を理解',
-            items: ['平安時代の文化', '貴族社会', '年中行事', '古典文学史'],
-            order: 4
-          }
-        ],
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ],
+         classical: [
+       {
+         id: 'classical-basic',
+         title: '古文基礎学習ルート',
+                   level: '初級レベル',
+          preparationPeriod: '約9.5ヶ月',
+         goal: '目標:学研の「ここからはじめる」シリーズで古文の基礎から読解まで段階的に習得',
+         sections: [
+           {
+             id: 'intro-classical-grammar',
+             title: '①岡本のここからはじめる古典文法ドリル',
+             description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+             items: ['活用の基本', '助動詞の理解', '助詞の使い方', '敬語の体系', '古典語彙', '古語辞典の使い方'],
+             order: 1,
+             studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+             duration: '約2ヶ月'
+           },
+           {
+             id: 'intro-classical-reading',
+             title: '②岡本のここからはじめる古文読解ドリル',
+             description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+             items: ['短文読解', '和歌の理解', '物語文', '随筆文', '指示語の理解', '要約の練習'],
+             order: 2,
+             studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+             duration: '約2ヶ月'
+           },
+                                   {
+              id: 'vocabulary-classical',
+              title: '③GROUP30で覚える古文単語600',
+              description: '語学春秋社の古文単語集で効率的に古典語彙を習得',
+              items: ['重要古文単語600語', 'グループ別学習', '語義・用例', '現代語訳'],
+              order: 3,
+              studyMethod: '30グループに分かれた600語を効率的に学習。1グループ20語ずつ、毎日1グループを目標にする。',
+              duration: '約1ヶ月'
+            },
+            {
+              id: 'polaris-classical',
+              title: '④大学入試問題集　岡本梨奈の古文ポラリス［1　基礎レベル］',
+              description: 'KADOKAWAの古文問題集で基礎から応用まで段階的に習得',
+              items: ['基礎レベル問題演習', '読解力向上', '文法の確認', '語彙の定着'],
+              order: 4,
+              studyMethod: '毎日2題ずつ基礎レベル問題に取り組む。基礎をしっかり固めてから次のレベルに進む。',
+              duration: '約1.5ヶ月'
+            },
+            {
+              id: 'polaris-standard-classical',
+              title: '⑤大学入試問題集　岡本梨奈の古文ポラリス［2　標準レベル］',
+              description: 'KADOKAWAの古文問題集で標準レベルの問題に取り組む',
+              items: ['標準レベル問題演習', '読解力向上', '文法の応用', '語彙の活用'],
+              order: 5,
+              studyMethod: '毎日2題ずつ標準レベル問題に取り組む。基礎レベルで習得した知識を活用して応用力を身につける。',
+              duration: '約1.5ヶ月'
+            },
+            {
+              id: 'polaris-advanced-classical',
+              title: '⑥大学入試問題集　岡本梨奈の古文ポラリス［3　発展レベル］',
+              description: 'KADOKAWAの古文問題集で発展レベルの問題に取り組む',
+              items: ['発展レベル問題演習', '読解力向上', '文法の応用', '語彙の活用'],
+              order: 6,
+              studyMethod: '毎日2題ずつ発展レベル問題に取り組む。標準レベルで習得した知識を活用して最難関大学入試に対応する実力を身につける。',
+              duration: '約1.5ヶ月'
+            }
+         ],
+         createdAt: new Date(),
+         updatedAt: new Date()
+       }
+     ],
     chinese: [
       {
         id: 'chinese-basic',
         title: '漢文基礎学習ルート',
-        level: '初級レベル',
-        passRate: '基礎習得率 75%',
-        preparationPeriod: '約5ヶ月',
+                 level: '初級レベル',
+         preparationPeriod: '約5ヶ月',
         goal: '目標:漢文の基礎文法と読解力を身につける',
         sections: [
           {
@@ -132,33 +181,74 @@ export const learningRoutes: Record<string, Record<string, RoadmapData[]>> = {
   math: {
     humanities: [
       {
-        id: 'math-humanities-basic',
-        title: '文系数学基礎学習ルート',
-        level: '基礎〜応用レベル',
-        passRate: '総合習得率 90%',
-        preparationPeriod: '約9ヶ月',
-        goal: '目標:ゴールデンルートシリーズで文系数学の基礎から応用まで段階的に習得',
+                 id: 'math-humanities-basic',
+         title: '文系数学基礎学習ルート',
+                   level: '基礎〜応用レベル',
+          preparationPeriod: '約12.5ヶ月',
+         goal: '目標:ゴールデンルートシリーズで文系数学の基礎から応用まで段階的に習得',
         sections: [
           {
+            id: 'intro-kokokara',
+            title: '①小倉のここからはじめる数学Ⅰドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['数と式', '関数と関数のグラフ', '三角比', '場合の数・確率', '集合と論理', 'データの分析', '図形の性質', '整数の性質'],
+            order: 1,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、定着度が確認できる模試つき。',
+            duration: '約1.5ヶ月'
+          },
+          {
+            id: 'intro-kokokara-a',
+            title: '②小倉のここからはじめる数学Ａドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['場合の数・確率', '整数の性質', '図形の性質', 'データの分析'],
+            order: 2,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+            duration: '約1.5ヶ月'
+          },
+          {
+            id: 'pattern-drill-2',
+            title: '③高校数学II パターンドリル',
+            description: 'スモールステップで着実に実力アップ。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            items: ['数と式', '関数と関数のグラフ', '三角比', '場合の数・確率', '集合と論理', 'データの分析', '図形の性質', '整数の性質'],
+            order: 3,
+            studyMethod: '1単元2ページ構成で手軽にサクサクできる。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            duration: '約1.5ヶ月'
+          },
+          {
+            id: 'pattern-drill-bc-vector',
+            title: '④高校数学B・C［ベクトル］ パターンドリル',
+            description: 'スモールステップで着実に実力アップ。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            items: ['ベクトル', '数列', '確率分布', '統計的な推測'],
+            order: 4,
+            studyMethod: '1単元2ページ構成で手軽にサクサクできる。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            duration: '約1.5ヶ月'
+          },
+          {
             id: 'step1-basic',
-            title: '①ゴールデンルート数学1A・2B基礎編',
+            title: '⑤ゴールデンルート数学1A・2B基礎編',
             description: '50題の入試問題で基本のカタを身につける',
             items: ['問題の読み方', '解答の書き方', '基礎計算力', '公式の理解'],
-            order: 1
+            order: 5,
+            studyMethod: '毎日5問を解くことを目標にする。5問×10日で1周できる。2週目は一回目に初見で解けなかった問題のみを解く。すべての問題が何も見なくても解けるようになるまで周回を続ける。',
+            duration: '約2ヶ月'
           },
           {
             id: 'step2-standard',
-            title: '②ゴールデンルート数学1A・2B標準編',
+            title: '⑥ゴールデンルート数学1A・2B標準編',
             description: '基礎編の内容を踏まえて、より高度な問題に取り組む',
             items: ['応用問題の解法', '複合問題の理解', '論理的思考力', '時間管理'],
-            order: 2
+            order: 6,
+            studyMethod: '毎日5問を解くことを目標にする。5問×16日で1周できる。2週目は一回目に初見で解けなかった問題のみを解く。すべての問題が何も見なくても解けるようになるまで周回を続ける。',
+            duration: '約2ヶ月'
           },
           {
             id: 'step3-advanced',
-            title: '③ゴールデンルート数学1A・2B応用編',
+            title: '⑦ゴールデンルート数学1A・2B応用編',
             description: '標準編の内容を踏まえて、最難関大学入試に対応する実力を身につける',
             items: ['難問の解法', '発想力の向上', '論理的思考力', '時間管理'],
-            order: 3
+            order: 7,
+            studyMethod: '毎日4問を解くことを目標にする。4問×10日で1周できる。2週目は一回目に初見で解けなかった問題のみを解く。すべての問題が何も見なくても解けるようになるまで周回を続ける。',
+            duration: '約2.5ヶ月'
           }
         ],
         createdAt: new Date(),
@@ -167,33 +257,74 @@ export const learningRoutes: Record<string, Record<string, RoadmapData[]>> = {
     ],
     science: [
       {
-        id: 'math-science-basic',
-        title: '理系数学基礎学習ルート',
-        level: '基礎〜応用レベル',
-        passRate: '総合習得率 95%',
-        preparationPeriod: '約9ヶ月',
-        goal: '目標:ゴールデンルートシリーズで理系数学の基礎から応用まで段階的に習得',
+                 id: 'math-science-basic',
+         title: '理系数学基礎学習ルート',
+                   level: '基礎〜応用レベル',
+          preparationPeriod: '約12.5ヶ月',
+         goal: '目標:ゴールデンルートシリーズで理系数学の基礎から応用まで段階的に習得',
         sections: [
           {
+            id: 'intro-kokokara-science',
+            title: '①小倉のここからはじめる数学Ⅰドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['数と式', '関数と関数のグラフ', '三角比', '場合の数・確率', '集合と論理', 'データの分析', '図形の性質', '整数の性質'],
+            order: 1,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、定着度が確認できる模試つき。',
+            duration: '約1.5ヶ月'
+          },
+          {
+            id: 'intro-kokokara-a-science',
+            title: '②小倉のここからはじめる数学Ａドリル',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            items: ['場合の数・確率', '整数の性質', '図形の性質', 'データの分析'],
+            order: 2,
+            studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+            duration: '約1.5ヶ月'
+          },
+          {
+            id: 'pattern-drill-2-science',
+            title: '③高校数学II パターンドリル',
+            description: 'スモールステップで着実に実力アップ。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            items: ['数と式', '関数と関数のグラフ', '三角比', '場合の数・確率', '集合と論理', 'データの分析', '図形の性質', '整数の性質'],
+            order: 3,
+            studyMethod: '1単元2ページ構成で手軽にサクサクできる。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            duration: '約1.5ヶ月'
+          },
+          {
+            id: 'pattern-drill-bc-vector-science',
+            title: '④高校数学B・C［ベクトル］ パターンドリル',
+            description: 'スモールステップで着実に実力アップ。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            items: ['ベクトル', '数列', '確率分布', '統計的な推測'],
+            order: 4,
+            studyMethod: '1単元2ページ構成で手軽にサクサクできる。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            duration: '約1.5ヶ月'
+          },
+          {
             id: 'step1-basic-science',
-            title: '①ゴールデンルート数学1A・2B基礎編',
+            title: '⑤ゴールデンルート数学1A・2B基礎編',
             description: '50題の入試問題で基本のカタを身につける',
             items: ['問題の読み方', '解答の書き方', '基礎計算力', '公式の理解'],
-            order: 1
+            order: 5,
+            studyMethod: '毎日5問を解くことを目標にする。5問×10日で1周できる。2週目は一回目に初見で解けなかった問題のみを解く。すべての問題が何も見なくても解けるようになるまで周回を続ける。',
+            duration: '約2ヶ月'
           },
           {
             id: 'step2-standard-science',
-            title: '②ゴールデンルート数学1A・2B標準編',
+            title: '⑥ゴールデンルート数学1A・2B標準編',
             description: '基礎編の内容を踏まえて、より高度な問題に取り組む',
             items: ['応用問題の解法', '複合問題の理解', '論理的思考力', '時間管理'],
-            order: 2
+            order: 6,
+            studyMethod: '毎日5問を解くことを目標にする。5問×16日で1周できる。2週目は一回目に初見で解けなかった問題のみを解く。すべての問題が何も見なくても解けるようになるまで周回を続ける。',
+            duration: '約2ヶ月'
           },
           {
             id: 'step3-advanced-science',
-            title: '③ゴールデンルート数学1A・2B応用編',
+            title: '⑦ゴールデンルート数学1A・2B応用編',
             description: '標準編の内容を踏まえて、最難関理系大学入試に対応する実力を身につける',
             items: ['難問の解法', '発想力の向上', '論理的思考力', '時間管理'],
-            order: 3
+            order: 7,
+            studyMethod: '毎日4問を解くことを目標にする。4問×10日で1周できる。2週目は一回目に初見で解けなかった問題のみを解く。すべての問題が何も見なくても解けるようになるまで周回を続ける。',
+            duration: '約2.5ヶ月'
           }
         ],
         createdAt: new Date(),
@@ -206,40 +337,74 @@ export const learningRoutes: Record<string, Record<string, RoadmapData[]>> = {
       {
         id: 'english-basic',
         title: '英語基礎学習ルート',
-        level: '初級レベル',
-        passRate: '基礎習得率 85%',
-        preparationPeriod: '約6ヶ月',
+                 level: '初級レベル',
+         preparationPeriod: '約13.5ヶ月',
         goal: '目標:英語の基礎文法と語彙力を身につける',
-        sections: [
-          {
-            id: 'grammar-basic',
-            title: '1. 基礎文法',
-            description: '英語の基本文法を理解',
-            items: ['be動詞・一般動詞', '現在形・過去形', '助動詞の基本', '疑問文・否定文'],
-            order: 1
-          },
-          {
-            id: 'vocabulary-basic',
-            title: '2. 基礎語彙',
-            description: '日常生活で使う語彙',
-            items: ['家族・友達', '学校・仕事', '食べ物・飲み物', '場所・交通'],
-            order: 2
-          },
-          {
-            id: 'reading-basic',
-            title: '3. 基礎読解',
-            description: '簡単な英文を読む',
-            items: ['短文読解', '絵本・童話', 'ニュース記事', 'メール・手紙'],
-            order: 3
-          },
-          {
-            id: 'listening-basic',
-            title: '4. 基礎リスニング',
-            description: '英語の音を聞き取る',
-            items: ['発音の練習', '簡単な会話', '英語の歌', '映画・ドラマ'],
-            order: 4
-          }
-        ],
+                 sections: [
+           {
+             id: 'intro-english-grammar',
+             title: '①土岐田のここからはじめる英文法ドリル',
+             description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+             items: ['be動詞・一般動詞', '現在形・過去形', '助動詞の基本', '疑問文・否定文', '比較級・最上級', '受動態'],
+             order: 1,
+             studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+             duration: '約2ヶ月'
+           },
+                       {
+              id: 'connect-english-grammar',
+              title: '②土岐田のここからつなげる英文法ドリル',
+              description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+              items: ['関係代名詞', '不定詞・動名詞', '分詞構文', '仮定法', '時制の一致', '話法'],
+              order: 2,
+              studyMethod: '1Ｐ解説＋1Ｐ演習の見開き完結で、確実に知識が定着。講師による使い方ガイド、学習内容の定着度が確認できる修了判定模試つき。',
+              duration: '約2ヶ月'
+            },
+                        {
+              id: 'target-1900',
+              title: '③英単語ターゲット1900',
+              description: '旺文社の英単語集で入試に必要な1900語を効率的に習得',
+              items: ['重要英単語1900語', 'レベル別学習', '語義・用例', '発音記号', '例文暗記'],
+              order: 3,
+              studyMethod: '毎日20語ずつ学習する。1日目は新出単語、2日目は復習、3日目はテスト形式で定着度を確認する。',
+              duration: '約3ヶ月'
+            },
+            {
+              id: 'the-rules-english-basic',
+              title: '④関正生のThe Rules英語長文問題集1入試基礎',
+              description: '関正生による英語長文問題集で入試基礎レベルの問題に取り組む',
+              items: ['入試基礎レベル長文読解', '読解力向上', '解法パターンの習得', '基礎知識の確認'],
+              order: 4,
+              studyMethod: '毎日1題ずつ基礎レベル長文に取り組む。基礎をしっかり固めてから次のレベルに進む。',
+              duration: '約1.5ヶ月'
+            },
+            {
+              id: 'tokyo-shingaku-english-reading',
+              title: '⑤改訂版 大学入試 世界一わかりやすい 英文読解の特別講座',
+              description: '東京進学の英文読解講座で読解の基礎から応用まで体系的に習得',
+              items: ['英文読解の基礎', '読解技法の習得', '長文読解演習', '読解力向上'],
+              order: 5,
+              studyMethod: '毎日1講座ずつ学習する。基礎から応用まで段階的に読解力を向上させる。',
+              duration: '約2ヶ月'
+            },
+            {
+              id: 'the-rules-english-standard',
+              title: '⑥関正生のThe Rules 英語長文問題集2入試標準',
+              description: '関正生による英語長文問題集で入試標準レベルの問題に取り組む',
+              items: ['入試標準レベル長文読解', '読解力向上', '解法パターンの応用', '応用知識の習得'],
+              order: 6,
+              studyMethod: '毎日1題ずつ標準レベル長文に取り組む。基礎レベルで習得した知識を活用して応用力を身につける。',
+              duration: '約1.5ヶ月'
+            },
+            {
+              id: 'the-rules-english-advanced',
+              title: '⑦関正生のThe Rules英語長文問題集3入試難関',
+              description: '関正生による英語長文問題集で入試難関レベルの問題に取り組む',
+              items: ['入試難関レベル長文読解', '読解力向上', '解法パターンの応用', '高度な知識の習得'],
+              order: 7,
+              studyMethod: '毎日1題ずつ難関レベル長文に取り組む。標準レベルで習得した知識を活用して最難関大学入試に対応する実力を身につける。',
+              duration: '約1.5ヶ月'
+            }
+         ],
         createdAt: new Date(),
         updatedAt: new Date()
       }

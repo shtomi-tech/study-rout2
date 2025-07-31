@@ -1,13 +1,6 @@
 import React from 'react';
-import { Download, Share2, Target, Clock, TrendingUp, BookOpen, CheckCircle, ArrowRight } from 'lucide-react';
-import { RoadmapData } from '../types';
 
-interface RoadmapViewerProps {
-  roadmap: RoadmapData;
-  onEdit: () => void;
-}
-
-export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
+const RoadmapViewer = ({
   roadmap,
   onEdit: _onEdit
 }) => {
@@ -45,7 +38,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
               <p className="text-lg text-gray-600 mb-4">{roadmap.subtitle}</p>
             )}
             <div className="flex items-center gap-2 text-blue-600 font-medium">
-              <BookOpen size={20} />
+              <span className="text-xl">📚</span>
               <span>学習ロードマップ</span>
             </div>
           </div>
@@ -54,14 +47,14 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
               onClick={handleDownload}
               className="btn-secondary flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
             >
-              <Download size={18} />
+              <span>📥</span>
               ダウンロード
             </button>
             <button
               onClick={handleShare}
               className="btn-primary flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
             >
-              <Share2 size={18} />
+              <span>📤</span>
               共有
             </button>
           </div>
@@ -71,7 +64,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
       {/* 基本情報 */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
         <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-          <Target size={20} className="text-blue-600" />
+          <span className="text-blue-600">🎯</span>
           学習概要
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -93,7 +86,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
       {/* 学習セクション */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
         <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-          <TrendingUp size={20} className="text-green-600" />
+          <span className="text-green-600">📈</span>
           学習セクション
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -116,7 +109,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
                   {section.studyMethod && (
                     <div className="mb-3">
                       <div className="text-sm font-semibold text-blue-800 mb-1 flex items-center gap-2">
-                        <BookOpen size={14} />
+                        <span>📚</span>
                         学習方法
                       </div>
                       <p className="text-sm text-blue-700 leading-relaxed">{section.studyMethod}</p>
@@ -125,7 +118,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
                   {section.duration && (
                     <div>
                       <div className="text-sm font-semibold text-blue-800 mb-1 flex items-center gap-2">
-                        <Clock size={14} />
+                        <span>⏰</span>
                         所要期間
                       </div>
                       <p className="text-sm text-blue-700">{section.duration}</p>
@@ -142,7 +135,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl shadow-sm border border-green-200 p-6">
         <div className="text-center">
           <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center justify-center gap-2">
-            <CheckCircle size={20} className="text-green-600" />
+            <span className="text-green-600">✅</span>
             学習目標
           </h3>
           <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">{roadmap.goal}</p>
@@ -152,7 +145,7 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
       {/* 学習のポイント */}
       <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-          <ArrowRight size={20} className="text-blue-600" />
+          <span className="text-blue-600">→</span>
           学習のポイント
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
@@ -196,4 +189,6 @@ export const RoadmapViewer: React.FC<RoadmapViewerProps> = ({
       </div>
     </div>
   );
-}; 
+};
+
+export { RoadmapViewer }; 

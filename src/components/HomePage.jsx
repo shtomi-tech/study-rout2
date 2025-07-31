@@ -1,17 +1,12 @@
 import React from 'react';
-import { BookOpen, Calculator, Globe, ArrowRight } from 'lucide-react';
 
-interface HomePageProps {
-  onSelectSubject: (subject: string) => void;
-}
-
-export const HomePage: React.FC<HomePageProps> = ({ onSelectSubject }) => {
+const HomePage = ({ onSelectSubject }) => {
   const subjects = [
     {
       id: 'japanese',
       name: '国語の学習ルート',
       description: '読解力と表現力を身につける学習計画',
-      icon: BookOpen,
+      icon: '📚',
       color: 'text-red-600',
       bgColor: 'bg-red-50',
       borderColor: 'border-red-200',
@@ -21,7 +16,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSelectSubject }) => {
       id: 'math',
       name: '数学の学習ルート',
       description: '論理的思考と計算力を養う学習計画',
-      icon: Calculator,
+      icon: '🧮',
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
       borderColor: 'border-blue-200',
@@ -31,7 +26,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSelectSubject }) => {
       id: 'english',
       name: '英語の学習ルート',
       description: '実践的な英語力を身につける学習計画',
-      icon: Globe,
+      icon: '🌍',
       color: 'text-green-600',
       bgColor: 'bg-green-50',
       borderColor: 'border-green-200',
@@ -68,57 +63,54 @@ export const HomePage: React.FC<HomePageProps> = ({ onSelectSubject }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {subjects.map((subject) => {
-              const IconComponent = subject.icon;
-              return (
-                <div
-                  key={subject.id}
-                  className="group"
+            {subjects.map((subject) => (
+              <div
+                key={subject.id}
+                className="group"
+              >
+                <button
+                  onClick={() => onSelectSubject(subject.id)}
+                  className="w-full h-full text-left bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden group-hover:scale-105"
                 >
-                  <button
-                    onClick={() => onSelectSubject(subject.id)}
-                    className="w-full h-full text-left bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden group-hover:scale-105"
-                  >
-                    <div className="p-8">
-                      {/* アイコンとグラデーション背景 */}
-                      <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${subject.gradient} flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                        <IconComponent size={32} className="text-white" />
+                  <div className="p-8">
+                    {/* アイコンとグラデーション背景 */}
+                    <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${subject.gradient} flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 text-white text-2xl`}>
+                      {subject.icon}
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">
+                      {subject.name}
+                    </h3>
+                    
+                    <p className="text-gray-600 mb-6 text-center text-sm leading-relaxed">
+                      {subject.description}
+                    </p>
+                    
+                    {/* 学習情報 */}
+                    <div className="space-y-3 text-sm text-gray-500 mb-6">
+                      <div className="flex justify-between items-center">
+                        <span>対象レベル:</span>
+                        <span className="font-medium text-gray-700">初級〜上級</span>
                       </div>
-                      
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">
-                        {subject.name}
-                      </h3>
-                      
-                      <p className="text-gray-600 mb-6 text-center text-sm leading-relaxed">
-                        {subject.description}
-                      </p>
-                      
-                      {/* 学習情報 */}
-                      <div className="space-y-3 text-sm text-gray-500 mb-6">
-                        <div className="flex justify-between items-center">
-                          <span>対象レベル:</span>
-                          <span className="font-medium text-gray-700">初級〜上級</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span>学習期間:</span>
-                          <span className="font-medium text-gray-700">3ヶ月〜1年</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span>習得目標:</span>
-                          <span className="font-medium text-gray-700">基礎〜応用</span>
-                        </div>
+                      <div className="flex justify-between items-center">
+                        <span>学習期間:</span>
+                        <span className="font-medium text-gray-700">3ヶ月〜1年</span>
                       </div>
-                      
-                      {/* アクションボタン */}
-                      <div className="flex items-center justify-center text-blue-600 group-hover:text-blue-700 font-medium">
-                        <span>詳細を見る</span>
-                        <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      <div className="flex justify-between items-center">
+                        <span>習得目標:</span>
+                        <span className="font-medium text-gray-700">基礎〜応用</span>
                       </div>
                     </div>
-                  </button>
-                </div>
-              );
-            })}
+                    
+                    {/* アクションボタン */}
+                    <div className="flex items-center justify-center text-blue-600 group-hover:text-blue-700 font-medium">
+                      <span>詳細を見る</span>
+                      <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            ))}
           </div>
 
           {/* 追加情報セクション */}
@@ -147,4 +139,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onSelectSubject }) => {
       </main>
     </div>
   );
-}; 
+};
+
+export { HomePage }; 
