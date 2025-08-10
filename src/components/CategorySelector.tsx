@@ -104,6 +104,26 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
               bgColor: 'bg-green-50',
               borderColor: 'border-green-200',
               gradient: 'from-green-400 to-green-500'
+            },
+            {
+              id: 'exam',
+              name: '大学受験英語',
+              description: '大学入試に必要な英語力を総合的に習得',
+              icon: Globe,
+              color: 'text-green-600',
+              bgColor: 'bg-green-50',
+              borderColor: 'border-green-200',
+              gradient: 'from-green-500 to-green-600'
+            },
+            {
+              id: 'eiken',
+              name: '英検対策',
+              description: '英検合格に必要な英語力を段階的に習得',
+              icon: Globe,
+              color: 'text-green-700',
+              bgColor: 'bg-green-50',
+              borderColor: 'border-green-200',
+              gradient: 'from-green-600 to-green-700'
             }
           ]
         };

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "学習ロードマップ作成ツール",
   "private": true,
+  "type": "module",
   "homepage": "https://shtomi-tech.github.io/study-rout2",
   "scripts": {
     "dev": "vite",

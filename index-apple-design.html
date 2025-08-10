@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学習ロードマップ閲覧ツール - Apple Design</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="apple-design-system.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+      const { useState } = React;
+      
+      const subjects = [
+        {
+          id: 'japanese',
+          name: '国語の学習ロードマップ',
+          description: '読解力と表現力を身につける学習計画の詳細',
+          color: 'var(--japanese-red)',
+          bgColor: 'var(--japanese-red)',
+          icon: '📚'
+        },
+        {
+          id: 'math',
+          name: '数学の学習ロードマップ',
+          description: '論理的思考と計算力を養う学習計画の詳細',
+          color: 'var(--math-blue)',
+          bgColor: 'var(--math-blue)',
+          icon: '🧮'
+        },
+        {
+          id: 'english',
+          name: '英語の学習ロードマップ',
+          description: '実践的な英語力を身につける学習計画の詳細',
+          color: 'var(--english-green)',
+          bgColor: 'var(--english-green)',
+          icon: '🌍'
+        }
+      ];
+
+      const japaneseCategories = [
+        {
+          id: 'modern',
+          name: '現代文',
+          description: '現代の文章を読解し、論理的思考力を養う',
+          icon: '📝',
+          color: 'var(--japanese-red)'
+        },
+        {
+          id: 'classical',
+          name: '古文',
+          description: '古典文学を読み解き、日本の文化と歴史を学ぶ',
+          icon: '📜',
+          color: '#FF9500'
+        },
+        {
+          id: 'chinese',
+          name: '漢文',
+          description: '漢文の読解を通じて、東洋の思想と文化を理解する',
+          icon: '🏛️',
+          color: '#EAB308'
+        }
+      ];
+
+      const mathCategories = [
+        {
+          id: 'humanities',
+          name: '文系数学',
+          description: '文系学部向けの数学学習',
+          icon: '📊',
+          color: 'var(--math-blue)'
+        },
+        {
+          id: 'science',
+          name: '理系数学',
+          description: '理系学部向けの数学学習',
+          icon: '🔬',
+          color: '#8B5CF6'
+        }
+      ];
+
+      const englishCategories = [
+        {
+          id: 'exam',
+          name: '入試英語',
+          description: '大学入試に特化した英語学習',
+          icon: '📚',
+          color: 'var(--english-green)'
+        }
+      ];
+
+      const modernTextbooks = [
+        {
+          id: 1,
+          title: 'ここからはじめる現代文',
+          level: '基礎',
+          description: '現代文の基礎を固めるための入門書',
+          target: '初学者',
+          duration: '2-3ヶ月',
+          order: 1
+        },
+        {
+          id: 2,
+          title: 'ここからつなげる現代文',
+          level: '基礎〜標準',
+          description: '基礎から標準レベルへの橋渡し',
+          target: '基礎習得者',
+          duration: '2-3ヶ月',
+          order: 2
+        },
+        {
+          id: 3,
+          title: 'The Rules 現代文 1 入試基礎',
+          level: '入試基礎',
+          description: '入試レベルの基礎を身につける',
+          target: '標準レベル',
+          duration: '3-4ヶ月',
+          order: 3
+        },
+        {
+          id: 4,
+          title: 'The Rules 現代文 2 入試標準',
+          level: '入試標準',
+          description: '入試標準レベルの読解力を養う',
+          target: '入試基礎習得者',
+          duration: '3-4ヶ月',
+          order: 4
+        },
+        {
+          id: 5,
+          title: 'The Rules 現代文 3 入試難関',
+          level: '入試難関',
+          description: '難関大学入試に対応する高度な読解力',
+          target: '入試標準習得者',
+          duration: '4-6ヶ月',
+          order: 5
+        }
+      ];
+
+      const examEnglishTextbooks = [
+        {
+          id: 1,
+          title: '中学英文法パターンドリル 中学全範囲',
+          level: '基礎',
+          description: '中学英文法の全範囲をパターン学習で習得',
+          target: '初学者',
+          duration: '3ヶ月',
+          order: 1
+        },
+        {
+          id: 2,
+          title: '高校英文法パターンドリル 超基礎編',
+          level: '基礎',
+          description: '高校英文法の超基礎をパターン学習で習得',
+          target: '基礎習得者',
+          duration: '4ヶ月',
+          order: 2
+        },
+        {
+          id: 3,
+          title: 'The Rules英語長文1 入試基礎',
+          level: '入試基礎',
+          description: '入試基礎レベルの英語長文学習',
+          target: '標準レベル',
+          duration: '3ヶ月',
+          order: 3
+        },
+        {
+          id: 4,
+          title: 'The Rules英語長文2 入試標準',
+          level: '入試標準',
+          description: '入試標準レベルの英語長文学習',
+          target: '入試基礎習得者',
+          duration: '4ヶ月',
+          order: 4
+        },
+        {
+          id: 5,
+          title: 'The Rules英語長文3 入試難関',
+          level: '入試難関',
+          description: '入試難関レベルの英語長文学習',
+          target: '入試標準習得者',
+          duration: '5ヶ月',
+          order: 5
+        }
+      ];
+
+      const target1200Textbooks = [
+        {
+          id: 1,
+          title: 'ターゲット1200 基礎編',
+          level: '基礎',
+          description: '英単語1200語の基礎を効率的に学習（並行学習可能）',
+          target: '初学者',
+          duration: '3ヶ月',
+          order: 1
+        },
+        {
+          id: 2,
+          title: 'ターゲット1200 応用編',
+          level: '応用',
+          description: '英単語1200語の応用を効率的に学習（並行学習可能）',
+          target: '基礎習得者',
+          duration: '3ヶ月',
+          order: 2
+        }
+      ];
+
+      const target1900Textbooks = [
+        {
+          id: 1,
+          title: 'ターゲット1900 基礎編',
+          level: '基礎',
+          description: '英単語1900語の基礎を効率的に学習（並行学習可能）',
+          target: '中級者',
+          duration: '6ヶ月',
+          order: 1
+        },
+        {
+          id: 2,
+          title: 'ターゲット1900 応用編',
+          level: '応用',
+          description: '英単語1900語の応用を効率的に学習（並行学習可能）',
+          target: '基礎習得者',
+          duration: '6ヶ月',
+          order: 2
+        }
+      ];
+
+      const HomePage = ({ onSelectSubject }) => {
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            {/* ヘッダー */}
+            <header className="nav-header">
+              <div className="nav-container">
+                <div className="text-center">
+                  <h1 className="text-h1 mb-4">
+                    学習ロードマップ閲覧ツール
+                  </h1>
+                  <p className="text-body-large text-center" style={{color: 'var(--gray-600)', maxWidth: '42rem', margin: '0 auto'}}>
+                    作成済みの学習ロードマップを閲覧して、効率的な学習計画を確認しましょう
+                  </p>
+                </div>
+              </div>
+            </header>
+
+            {/* メインコンテンツ */}
+            <main style={{padding: '3rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-12">
+                  <h2 className="text-h2 mb-4">
+                    閲覧したい学習ロードマップを選択してください
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    各科目の学習ロードマップから選択して、学習計画を確認しましょう
+                  </p>
+                </div>
+
+                <div className="cards-grid">
+                  {subjects.map((subject) => (
+                    <div key={subject.id} className="group">
+                      <button
+                        onClick={() => onSelectSubject(subject.id)}
+                        className="learning-card w-full h-full text-left"
+                        style={{border: 'none', background: 'white'}}
+                      >
+                        <div className="card-icon" style={{backgroundColor: subject.bgColor}}>
+                          <span style={{fontSize: '1.5rem'}}>
+                            {subject.icon}
+                          </span>
+                        </div>
+                        
+                        <h3 className="card-title">
+                          {subject.name}
+                        </h3>
+                        
+                        <p className="card-description">
+                          {subject.description}
+                        </p>
+                        
+                        {/* 学習情報 */}
+                        <div className="card-info">
+                          <span>対象レベル:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>初級〜上級</span>
+                        </div>
+                        <div className="card-info">
+                          <span>学習期間:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>3ヶ月〜1年</span>
+                        </div>
+                        <div className="card-info">
+                          <span>習得目標:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>基礎〜応用</span>
+                        </div>
+                        
+                        {/* アクションボタン */}
+                        <div className="card-action">
+                          <span>ロードマップを閲覧</span>
+                          <span className="card-action-arrow">→</span>
+                        </div>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 追加情報セクション */}
+                <div style={{marginTop: '4rem'}}>
+                  <div className="learning-card">
+                    <div className="text-center">
+                      <h3 className="text-h3 mb-4">
+                        学習ロードマップ閲覧の特徴
+                      </h3>
+                      <div className="cards-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))'}}>
+                        <div>
+                          <div style={{fontWeight: '500', color: 'var(--gray-900)', marginBottom: '0.5rem'}}>📖 詳細閲覧</div>
+                          <p className="text-body-small" style={{color: 'var(--gray-600)'}}>作成済みの学習ロードマップを詳細に確認</p>
+                        </div>
+                        <div>
+                          <div style={{fontWeight: '500', color: 'var(--gray-900)', marginBottom: '0.5rem'}}>📊 進捗確認</div>
+                          <p className="text-body-small" style={{color: 'var(--gray-600)'}}>学習の進捗状況を可視化して確認</p>
+                        </div>
+                        <div>
+                          <div style={{fontWeight: '500', color: 'var(--gray-900)', marginBottom: '0.5rem'}}>🎯 目標確認</div>
+                          <p className="text-body-small" style={{color: 'var(--gray-600)'}}>設定された学習目標と達成状況を確認</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const JapaneseCategoryPage = ({ onSelectCategory, onBackToHome }) => {
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToHome}
+                  className="nav-back-button"
+                >
+                  ← ホームに戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: 'var(--japanese-red)'}}>
+                    国
+                  </div>
+                  国語の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    国語の学習カテゴリを選択してください
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    現代文・古文・漢文から学習したい分野を選択しましょう
+                  </p>
+                </div>
+                <div className="cards-grid">
+                  {japaneseCategories.map((category) => (
+                    <div key={category.id} className="group">
+                      <button
+                        onClick={() => onSelectCategory(category.id)}
+                        className="learning-card w-full h-full text-left"
+                        style={{border: 'none', background: 'white'}}
+                      >
+                        <div className="card-icon" style={{backgroundColor: category.color}}>
+                          <span style={{fontSize: '1.5rem'}}>
+                            {category.icon}
+                          </span>
+                        </div>
+                        
+                        <h3 className="card-title">
+                          {category.name}
+                        </h3>
+                        
+                        <p className="card-description">
+                          {category.description}
+                        </p>
+                        
+                        {/* 学習情報 */}
+                        <div className="card-info">
+                          <span>対象レベル:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>初級〜上級</span>
+                        </div>
+                        <div className="card-info">
+                          <span>学習期間:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>3ヶ月〜1年</span>
+                        </div>
+                        <div className="card-info">
+                          <span>習得目標:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>基礎〜応用</span>
+                        </div>
+                        
+                        {/* アクションボタン */}
+                        <div className="card-action">
+                          <span>ロードマップを閲覧</span>
+                          <span className="card-action-arrow">→</span>
+                        </div>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const MathCategoryPage = ({ onSelectCategory, onBackToHome }) => {
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToHome}
+                  className="nav-back-button"
+                >
+                  ← ホームに戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: 'var(--math-blue)'}}>
+                    数
+                  </div>
+                  数学の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    数学の学習カテゴリを選択してください
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    文系数学・理系数学から学習したい分野を選択しましょう
+                  </p>
+                </div>
+                <div className="cards-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
+                  {mathCategories.map((category) => (
+                    <div key={category.id} className="group">
+                      <button
+                        onClick={() => onSelectCategory(category.id)}
+                        className="learning-card math-category-card w-full h-full text-left"
+                        style={{border: 'none', background: 'white'}}
+                      >
+                        <div className="card-icon" style={{backgroundColor: category.color}}>
+                          <span style={{fontSize: '1.5rem'}}>
+                            {category.icon}
+                          </span>
+                        </div>
+                        
+                        <h3 className="card-title">
+                          {category.name}
+                        </h3>
+                        
+                        <p className="card-description">
+                          {category.description}
+                        </p>
+                        
+                        {/* 学習情報 */}
+                        <div className="card-info">
+                          <span>対象レベル:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>初級〜上級</span>
+                        </div>
+                        <div className="card-info">
+                          <span>学習期間:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>3ヶ月〜1年</span>
+                        </div>
+                        <div className="card-info">
+                          <span>習得目標:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>基礎〜応用</span>
+                        </div>
+                        
+                        {/* アクションボタン */}
+                        <div className="card-action">
+                          <span>ロードマップを閲覧</span>
+                          <span className="card-action-arrow">→</span>
+                        </div>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const EnglishCategoryPage = ({ onSelectCategory, onBackToHome }) => {
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToHome}
+                  className="nav-back-button"
+                >
+                  ← ホームに戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: 'var(--english-green)'}}>
+                    英
+                  </div>
+                  英語の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    英語の学習カテゴリを選択してください
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    入試英語から学習したい分野を選択しましょう
+                  </p>
+                </div>
+                <div className="cards-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
+                  {englishCategories.map((category) => (
+                    <div key={category.id} className="group">
+                      <button
+                        onClick={() => onSelectCategory(category.id)}
+                        className="learning-card w-full h-full text-left"
+                        style={{border: 'none', background: 'white'}}
+                      >
+                        <div className="card-icon" style={{backgroundColor: category.color}}>
+                          <span style={{fontSize: '1.5rem'}}>
+                            {category.icon}
+                          </span>
+                        </div>
+                        
+                        <h3 className="card-title">
+                          {category.name}
+                        </h3>
+                        
+                        <p className="card-description">
+                          {category.description}
+                        </p>
+                        
+                        {/* 学習情報 */}
+                        <div className="card-info">
+                          <span>対象レベル:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>初級〜上級</span>
+                        </div>
+                        <div className="card-info">
+                          <span>学習期間:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>6ヶ月〜1年</span>
+                        </div>
+                        <div className="card-info">
+                          <span>習得目標:</span>
+                          <span style={{fontWeight: '500', color: 'var(--gray-700)'}}>基礎〜応用</span>
+                        </div>
+                        
+                        {/* アクションボタン */}
+                        <div className="card-action">
+                          <span>ロードマップを閲覧</span>
+                          <span className="card-action-arrow">→</span>
+                        </div>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const ModernTextbookPage = ({ onBackToSubject }) => {
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToSubject}
+                  className="nav-back-button"
+                >
+                  ← カテゴリ選択に戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: 'var(--japanese-red)'}}>
+                    現
+                  </div>
+                  現代文の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    現代文の学習ロードマップ
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    段階的に現代文の読解力を身につける学習計画
+                  </p>
+                </div>
+                
+                {/* 学習の流れ */}
+                <div className="learning-card mb-8">
+                  <h3 className="text-h3 mb-4">学習の流れ</h3>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                    {modernTextbooks.map((textbook) => (
+                      <div key={textbook.id} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                        <div style={{
+                          flexShrink: 0,
+                          width: '2rem',
+                          height: '2rem',
+                          borderRadius: 'var(--radius-full)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 'var(--body-small)',
+                          fontWeight: '700',
+                          color: 'white',
+                          backgroundColor: 'var(--japanese-red)'
+                        }}>
+                          {textbook.order}
+                        </div>
+                        <div style={{flex: 1}}>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                            <h4 className="text-h4">{textbook.title}</h4>
+                            <span style={{
+                              padding: '0.25rem 0.5rem',
+                              backgroundColor: '#FEE2E2',
+                              color: '#B91C1C',
+                              fontSize: '0.75rem',
+                              fontWeight: '500',
+                              borderRadius: 'var(--radius-full)'
+                            }}>
+                              {textbook.level}
+                            </span>
+                          </div>
+                          <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                            <span>対象: {textbook.target}</span>
+                            <span>期間: {textbook.duration}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const ExamEnglishTextbookPage = ({ onBackToSubject }) => {
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToSubject}
+                  className="nav-back-button"
+                >
+                  ← カテゴリ選択に戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: 'var(--english-green)'}}>
+                    入
+                  </div>
+                  入試英語の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    入試英語の学習ロードマップ
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    基礎から難関レベルまで段階的に学習できる体系的カリキュラム
+                  </p>
+                </div>
+                
+                {/* メインコースと並行学習コースを縦に並べる */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+                  {/* メインコース（1~5）の表示 */}
+                  <div>
+                    <h3 className="text-h3 mb-6 text-center">
+                      メインコース
+                    </h3>
+                    <div className="learning-card mb-8">
+                      <h3 className="text-h3 mb-4">学習の流れ</h3>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                        {examEnglishTextbooks.map((textbook) => (
+                          <div key={textbook.id} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                            <div style={{
+                              flexShrink: 0,
+                              width: '2rem',
+                              height: '2rem',
+                              borderRadius: 'var(--radius-full)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 'var(--body-small)',
+                              fontWeight: '700',
+                              color: 'white',
+                              backgroundColor: 'var(--english-green)'
+                            }}>
+                              {textbook.order}
+                            </div>
+                            <div style={{flex: 1}}>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                                <h4 className="text-h4">{textbook.title}</h4>
+                                <span style={{
+                                  padding: '0.25rem 0.5rem',
+                                  backgroundColor: '#DCFCE7',
+                                  color: '#166534',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '500',
+                                  borderRadius: 'var(--radius-full)'
+                                }}>
+                                  {textbook.level}
+                                </span>
+                              </div>
+                              <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                                <span>対象: {textbook.target}</span>
+                                <span>期間: {textbook.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* 並行学習コースの表示 */}
+                  <div>
+                    <h3 className="text-h3 mb-6 text-center">
+                      並行学習コース
+                    </h3>
+                    <div className="learning-card mb-8">
+                      <h3 className="text-h3 mb-4">ターゲット1200</h3>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                        {target1200Textbooks.map((textbook) => (
+                          <div key={`target1200-${textbook.id}`} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                            <div style={{
+                              flexShrink: 0,
+                              width: '2rem',
+                              height: '2rem',
+                              borderRadius: 'var(--radius-full)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 'var(--body-small)',
+                              fontWeight: '700',
+                              color: 'white',
+                              backgroundColor: '#8B5CF6'
+                            }}>
+                              P1
+                            </div>
+                            <div style={{flex: 1}}>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                                <h4 className="text-h4">{textbook.title}</h4>
+                                <span style={{
+                                  padding: '0.25rem 0.5rem',
+                                  backgroundColor: '#F3E8FF',
+                                  color: '#7C3AED',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '500',
+                                  borderRadius: 'var(--radius-full)'
+                                }}>
+                                  {textbook.level}
+                                </span>
+                              </div>
+                              <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                                <span>対象: {textbook.target}</span>
+                                <span>期間: {textbook.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="learning-card mb-8">
+                      <h3 className="text-h3 mb-4">ターゲット1900</h3>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                        {target1900Textbooks.map((textbook) => (
+                          <div key={`target1900-${textbook.id}`} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                            <div style={{
+                              flexShrink: 0,
+                              width: '2rem',
+                              height: '2rem',
+                              borderRadius: 'var(--radius-full)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 'var(--body-small)',
+                              fontWeight: '700',
+                              color: 'white',
+                              backgroundColor: '#6366F1'
+                            }}>
+                              P2
+                            </div>
+                            <div style={{flex: 1}}>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                                <h4 className="text-h4">{textbook.title}</h4>
+                                <span style={{
+                                  padding: '0.25rem 0.5rem',
+                                  backgroundColor: '#EEF2FF',
+                                  color: '#4338CA',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '500',
+                                  borderRadius: 'var(--radius-full)'
+                                }}>
+                                  {textbook.level}
+                                </span>
+                              </div>
+                              <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                                <span>対象: {textbook.target}</span>
+                                <span>期間: {textbook.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const ClassicalTextbookPage = ({ onBackToSubject }) => {
+        const classicalTextbooks = [
+          {
+            id: 1,
+            title: 'ここからはじめる古典文法',
+            level: '基礎',
+            description: '古典文法の基礎を固めるための入門書。わかりやすい解説で古典文法の基本を習得する',
+            target: '初学者',
+            duration: '2ヶ月',
+            order: 1
+          },
+          {
+            id: 2,
+            title: 'ここからつなげる古典文法',
+            level: '基礎〜標準',
+            description: '基礎で習得した古典文法を応用し、読解力向上につなげる',
+            target: '基礎習得者',
+            duration: '2ヶ月',
+            order: 2
+          },
+          {
+            id: 3,
+            title: '古文POLARIS 1 基礎レベル',
+            level: '基礎',
+            description: '古文ポラリスシリーズの基礎レベルで、古典文法と読解の基礎を固める',
+            target: '標準レベル',
+            duration: '1.5ヶ月',
+            order: 3
+          },
+          {
+            id: 4,
+            title: '古文POLARIS 2 標準レベル',
+            level: '標準',
+            description: '古文ポラリスシリーズの標準レベルで、古典文法と読解の応用力を身につける',
+            target: '基礎習得者',
+            duration: '1.5ヶ月',
+            order: 4
+          },
+          {
+            id: 5,
+            title: '古文POLARIS 3 発展レベル',
+            level: '発展',
+            description: '古文ポラリスシリーズの発展レベルで、最難関大学入試に対応する実力を身につける',
+            target: '標準習得者',
+            duration: '1.5ヶ月',
+            order: 5
+          }
+        ];
+
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToSubject}
+                  className="nav-back-button"
+                >
+                  ← カテゴリ選択に戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: '#FF9500'}}>
+                    古
+                  </div>
+                  古文の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    古文の学習ロードマップ
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    古典文法の基礎から応用まで体系的に習得し、古文読解力を向上させる
+                  </p>
+                </div>
+                
+                {/* 学習の流れ */}
+                <div className="learning-card mb-8">
+                  <h3 className="text-h3 mb-4">学習の流れ</h3>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                    {classicalTextbooks.map((textbook) => (
+                      <div key={textbook.id} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                        <div style={{
+                          flexShrink: 0,
+                          width: '2rem',
+                          height: '2rem',
+                          borderRadius: 'var(--radius-full)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 'var(--body-small)',
+                          fontWeight: '700',
+                          color: 'white',
+                          backgroundColor: '#FF9500'
+                        }}>
+                          {textbook.order}
+                        </div>
+                        <div style={{flex: 1}}>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                            <h4 className="text-h4">{textbook.title}</h4>
+                            <span style={{
+                              padding: '0.25rem 0.5rem',
+                              backgroundColor: '#FFF7ED',
+                              color: '#C2410C',
+                              fontSize: '0.75rem',
+                              fontWeight: '500',
+                              borderRadius: 'var(--radius-full)'
+                            }}>
+                              {textbook.level}
+                            </span>
+                          </div>
+                          <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                            <span>対象: {textbook.target}</span>
+                            <span>期間: {textbook.duration}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const HumanitiesMathTextbookPage = ({ onBackToSubject }) => {
+        const humanitiesMathTextbooks = [
+          {
+            id: 1,
+            title: '高校数学Ⅰ パターンドリル',
+            level: '基礎',
+            description: '高校数学Ⅰのパターンドリルで基礎を固める',
+            target: '初学者',
+            duration: '1.5ヶ月',
+            order: 1
+          },
+          {
+            id: 2,
+            title: '高校数学A パターンドリル',
+            level: '基礎',
+            description: '高校数学Aのパターンドリルで基礎を固める',
+            target: '初学者',
+            duration: '1.5ヶ月',
+            order: 2
+          },
+          {
+            id: 3,
+            title: '高校数学Ⅱ パターンドリル',
+            level: '標準',
+            description: '高校数学Ⅱのパターンドリルで実力を向上させる',
+            target: '基礎習得者',
+            duration: '2ヶ月',
+            order: 3
+          },
+          {
+            id: 4,
+            title: '高校数学BC パターンドリル',
+            level: '標準',
+            description: '高校数学BCのパターンドリルで実力を向上させる',
+            target: '標準レベル',
+            duration: '2ヶ月',
+            order: 4
+          },
+          {
+            id: 5,
+            title: '解法のエウレカ 数学ⅠA',
+            level: '応用',
+            description: '解法のエウレカシリーズで数学ⅠAの応用力を身につける',
+            target: '標準習得者',
+            duration: '2ヶ月',
+            order: 5
+          },
+          {
+            id: 6,
+            title: '解法のエウレカ 数学ⅡB+ベクトル',
+            level: '応用',
+            description: '解法のエウレカシリーズで数学ⅡB+ベクトルの応用力を身につける',
+            target: '応用レベル',
+            duration: '2.5ヶ月',
+            order: 6
+          },
+          {
+            id: 7,
+            title: '大学入学共通テスト 数学重要問題集',
+            level: '発展',
+            description: '大学入学共通テストの数学重要問題集で実戦力を身につける',
+            target: '応用習得者',
+            duration: '2ヶ月',
+            order: 7
+          }
+        ];
+
+        const parallelMathTextbooks = [
+          {
+            id: 1,
+            title: 'ゴールデンルート 数学ⅠA・ⅡB 基礎編',
+            level: '基礎',
+            description: '50題の入試問題で基本のカタを身につける。基礎レベルの問題を網羅',
+            target: '初学者〜標準レベル',
+            duration: '並行学習',
+            order: 'P1'
+          },
+          {
+            id: 2,
+            title: 'ゴールデンルート 数学ⅠA・ⅡB 標準編',
+            level: '標準',
+            description: '基礎編の内容を踏まえて、より高度な問題に取り組む。標準レベルの問題を網羅',
+            target: '基礎習得者〜応用レベル',
+            duration: '並行学習',
+            order: 'P2'
+          },
+          {
+            id: 3,
+            title: 'ゴールデンルート 数学ⅠA・ⅡB 応用編',
+            level: '応用',
+            description: '標準編の内容を踏まえて、最難関理系大学入試に対応する実力を身につける。応用レベルの問題を網羅',
+            target: '標準習得者〜発展レベル',
+            duration: '並行学習',
+            order: 'P3'
+          }
+        ];
+
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToSubject}
+                  className="nav-back-button"
+                >
+                  ← カテゴリ選択に戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: 'var(--math-blue)'}}>
+                    文
+                  </div>
+                  文系数学の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    文系数学の学習ロードマップ
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    ゴールデンルートシリーズで文系数学の基礎から応用まで段階的に習得
+                  </p>
+                </div>
+                
+                {/* メインコースと並行学習コースを縦に並べる */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+                  {/* メインコース（1~6）の表示 */}
+                  <div>
+                    <h3 className="text-h3 mb-6 text-center">
+                      メインコース
+                    </h3>
+                    <div className="learning-card mb-8">
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                        {humanitiesMathTextbooks.map((textbook) => (
+                          <div key={textbook.id} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                            <div style={{
+                              flexShrink: 0,
+                              width: '2rem',
+                              height: '2rem',
+                              borderRadius: 'var(--radius-full)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 'var(--body-small)',
+                              fontWeight: '700',
+                              color: 'white',
+                              backgroundColor: 'var(--math-blue)'
+                            }}>
+                              {textbook.order}
+                            </div>
+                            <div style={{flex: 1}}>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                                <h4 className="text-h4">{textbook.title}</h4>
+                                <span style={{
+                                  padding: '0.25rem 0.5rem',
+                                  backgroundColor: '#DBEAFE',
+                                  color: '#1E40AF',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '500',
+                                  borderRadius: 'var(--radius-full)'
+                                }}>
+                                  {textbook.level}
+                                </span>
+                              </div>
+                              <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                                <span>対象: {textbook.target}</span>
+                                <span>期間: {textbook.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* サブコースの表示 */}
+                  <div>
+                    <h3 className="text-h3 mb-6 text-center">
+                      サブコース
+                    </h3>
+                    <div className="learning-card mb-8">
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                        {parallelMathTextbooks.map((textbook) => (
+                          <div key={textbook.id} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                            <div style={{
+                              flexShrink: 0,
+                              width: '2rem',
+                              height: '2rem',
+                              borderRadius: 'var(--radius-full)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 'var(--body-small)',
+                              fontWeight: '700',
+                              color: 'white',
+                              backgroundColor: '#8B5CF6'
+                            }}>
+                              {textbook.order}
+                            </div>
+                            <div style={{flex: 1}}>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                                <h4 className="text-h4">{textbook.title}</h4>
+                                <span style={{
+                                  padding: '0.25rem 0.5rem',
+                                  backgroundColor: '#F3E8FF',
+                                  color: '#7C3AED',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '500',
+                                  borderRadius: 'var(--radius-full)'
+                                }}>
+                                  {textbook.level}
+                                </span>
+                              </div>
+                              <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                                <span>対象: {textbook.target}</span>
+                                <span>期間: {textbook.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const ScienceMathTextbookPage = ({ onBackToSubject }) => {
+        const scienceMathTextbooks = [
+          {
+            id: 1,
+            title: '小倉のここからはじめる数学Ⅰドリル',
+            level: '基礎',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            target: '初学者',
+            duration: '1.5ヶ月',
+            order: 1
+          },
+          {
+            id: 2,
+            title: '小倉のここからはじめる数学Ａドリル',
+            level: '基礎',
+            description: '入試に不可欠な超基礎レベルの知識を1冊で学べる。人気講師によるわかりやすい解説で「ニガテ」「今さら聞けない」を払拭！',
+            target: '初学者',
+            duration: '1.5ヶ月',
+            order: 2
+          },
+          {
+            id: 3,
+            title: '高校数学II パターンドリル',
+            level: '標準',
+            description: 'スモールステップで着実に実力アップ。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            target: '基礎習得者',
+            duration: '1.5ヶ月',
+            order: 3
+          },
+          {
+            id: 4,
+            title: '高校数学B・C［ベクトル］ パターンドリル',
+            level: '標準',
+            description: 'スモールステップで着実に実力アップ。解法パターンの確認→問題演習とくり返し練習しているうちに、問題の解き方がしっかり身につく。',
+            target: '標準レベル',
+            duration: '1.5ヶ月',
+            order: 4
+          },
+          {
+            id: 5,
+            title: 'ゴールデンルート数学1A・2B基礎編',
+            level: '応用',
+            description: '50題の入試問題で基本のカタを身につける',
+            target: '標準レベル',
+            duration: '2ヶ月',
+            order: 5
+          },
+          {
+            id: 6,
+            title: 'ゴールデンルート数学1A・2B標準編',
+            level: '応用',
+            description: '基礎編の内容を踏まえて、より高度な問題に取り組む',
+            target: '応用レベル',
+            duration: '2ヶ月',
+            order: 6
+          },
+          {
+            id: 7,
+            title: 'ゴールデンルート数学1A・2B応用編',
+            level: '発展',
+            description: '標準編の内容を踏まえて、最難関理系大学入試に対応する実力を身につける',
+            target: '発展レベル',
+            duration: '2.5ヶ月',
+            order: 7
+          }
+        ];
+
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            <header className="nav-header">
+              <div className="nav-container">
+                <button
+                  onClick={onBackToSubject}
+                  className="nav-back-button"
+                >
+                  ← カテゴリ選択に戻る
+                </button>
+                <div className="nav-title">
+                  <div className="nav-icon" style={{backgroundColor: '#8B5CF6'}}>
+                    理
+                  </div>
+                  理系数学の学習ロードマップ
+                </div>
+              </div>
+            </header>
+            <main style={{padding: '2rem 0'}}>
+              <div className="container">
+                <div className="text-center mb-8">
+                  <h2 className="text-h2 mb-4">
+                    理系数学の学習ロードマップ
+                  </h2>
+                  <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                    ゴールデンルートシリーズで理系数学の基礎から応用まで段階的に習得
+                  </p>
+                </div>
+                
+                {/* 学習の流れ */}
+                <div className="learning-card mb-8">
+                  <h3 className="text-h3 mb-4">学習の流れ</h3>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                    {scienceMathTextbooks.map((textbook) => (
+                      <div key={textbook.id} style={{display: 'flex', alignItems: 'flex-start', gap: '1rem'}}>
+                        <div style={{
+                          flexShrink: 0,
+                          width: '2rem',
+                          height: '2rem',
+                          borderRadius: 'var(--radius-full)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 'var(--body-small)',
+                          fontWeight: '700',
+                          color: 'white',
+                          backgroundColor: '#8B5CF6'
+                        }}>
+                          {textbook.order}
+                        </div>
+                        <div style={{flex: 1}}>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                            <h4 className="text-h4">{textbook.title}</h4>
+                            <span style={{
+                              padding: '0.25rem 0.5rem',
+                              backgroundColor: '#F3E8FF',
+                              color: '#7C3AED',
+                              fontSize: '0.75rem',
+                              fontWeight: '500',
+                              borderRadius: 'var(--radius-full)'
+                            }}>
+                              {textbook.level}
+                            </span>
+                          </div>
+                          <p className="text-body-medium" style={{color: 'var(--gray-600)', marginBottom: '0.5rem'}}>{textbook.description}</p>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '1rem', fontSize: 'var(--body-small)', color: 'var(--gray-500)'}}>
+                            <span>対象: {textbook.target}</span>
+                            <span>期間: {textbook.duration}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+
+              </div>
+            </main>
+          </div>
+        );
+      };
+
+      const App = () => {
+        const [currentState, setCurrentState] = useState('home');
+        const [selectedSubject, setSelectedSubject] = useState('');
+        const [selectedCategory, setSelectedCategory] = useState('');
+
+        const handleSelectSubject = (subject) => {
+          setSelectedSubject(subject);
+          if (subject === 'japanese') {
+            setCurrentState('japanese-category');
+          } else if (subject === 'math') {
+            setCurrentState('math-category');
+          } else if (subject === 'english') {
+            setCurrentState('english-category');
+          } else {
+            setCurrentState('category');
+          }
+        };
+
+        const handleSelectCategory = (category) => {
+          setSelectedCategory(category);
+          setCurrentState('roadmap');
+        };
+
+        const handleBackToHome = () => {
+          setCurrentState('home');
+          setSelectedSubject('');
+          setSelectedCategory('');
+        };
+
+        const handleBackToSubject = () => {
+          if (selectedSubject === 'japanese') {
+            setCurrentState('japanese-category');
+          } else if (selectedSubject === 'math') {
+            setCurrentState('math-category');
+          } else if (selectedSubject === 'english') {
+            setCurrentState('english-category');
+          } else {
+            setCurrentState('category');
+          }
+          setSelectedCategory('');
+        };
+
+        const renderContent = () => {
+          switch (currentState) {
+            case 'home':
+              return <HomePage onSelectSubject={handleSelectSubject} />;
+            case 'japanese-category':
+              return <JapaneseCategoryPage onSelectCategory={handleSelectCategory} onBackToHome={handleBackToHome} />;
+            case 'math-category':
+              return <MathCategoryPage onSelectCategory={handleSelectCategory} onBackToHome={handleBackToHome} />;
+            case 'english-category':
+              return <EnglishCategoryPage onSelectCategory={handleSelectCategory} onBackToHome={handleBackToHome} />;
+            case 'roadmap':
+              if (selectedCategory === 'modern') {
+                return <ModernTextbookPage onBackToSubject={handleBackToSubject} />;
+              } else if (selectedCategory === 'exam') {
+                return <ExamEnglishTextbookPage onBackToSubject={handleBackToSubject} />;
+              } else if (selectedCategory === 'classical') {
+                return <ClassicalTextbookPage onBackToSubject={handleBackToSubject} />;
+              } else if (selectedCategory === 'humanities') {
+                return <HumanitiesMathTextbookPage onBackToSubject={handleBackToSubject} />;
+              } else if (selectedCategory === 'science') {
+                return <ScienceMathTextbookPage onBackToSubject={handleBackToSubject} />;
+              }
+              return (
+                <div className="min-h-screen bg-gradient-primary">
+                  <header className="nav-header">
+                    <div className="nav-container">
+                      <button
+                        onClick={handleBackToSubject}
+                        className="nav-back-button"
+                      >
+                        ← カテゴリ選択に戻る
+                      </button>
+                      <div className="nav-title">
+                        <div className="nav-icon" style={{backgroundColor: 'var(--japanese-red)'}}>
+                          国
+                        </div>
+                        国語の学習ロードマップ
+                      </div>
+                    </div>
+                  </header>
+                  <main style={{padding: '2rem 0'}}>
+                    <div className="container">
+                      <div className="text-center mb-8">
+                        <h2 className="text-h2 mb-4">
+                          {selectedCategory === 'classical' ? '古文' : '漢文'}の学習ロードマップ
+                        </h2>
+                        <p className="text-body-medium" style={{color: 'var(--gray-600)'}}>
+                          詳細な学習計画を確認できます
+                        </p>
+                      </div>
+                      <div className="learning-card">
+                        <div className="text-center" style={{color: 'var(--gray-600)'}}>
+                          <p>学習ロードマップの詳細表示機能は開発中です...</p>
+                          <p style={{marginTop: '0.5rem', fontSize: 'var(--body-small)'}}>現在は基本的な閲覧機能のみ利用可能です</p>
+                          <button
+                            onClick={handleBackToSubject}
+                            className="btn btn-primary"
+                            style={{marginTop: '1rem'}}
+                          >
+                            カテゴリ選択に戻る
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </main>
+                </div>
+              );
+            default:
+              return null;
+          }
+        };
+
+        return (
+          <div className="min-h-screen bg-gradient-primary">
+            {renderContent()}
+            
+            {/* フッター */}
+            {currentState === 'home' && (
+              <footer style={{
+                background: 'rgba(255, 255, 255, 0.8)',
+                borderTop: '1px solid var(--gray-200)',
+                marginTop: 'auto'
+              }}>
+                <div className="container" style={{padding: '1rem 0'}}>
+                  <div className="text-center" style={{color: 'var(--gray-500)', fontSize: 'var(--body-small)'}}>
+                    <p>学習ロードマップ閲覧ツール - 国語・数学・英語の学習計画を閲覧</p>
+                  </div>
+                </div>
+              </footer>
+            )}
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html> 
